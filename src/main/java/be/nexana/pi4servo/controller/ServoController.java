@@ -22,7 +22,7 @@ public class ServoController {
 
         }
 //long netraulPulse = TimeUnit.MICROSECONDS.
-        pin.setPwm(5);
+        pin.setPwm(50);
 
         Thread.sleep(2500);
         pin.setPwm(0);
