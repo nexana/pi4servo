@@ -20,8 +20,11 @@ public class ServoController {
             GpioController gpio = GpioFactory.getInstance();
             pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_24, "ServoPulse", PinState.LOW);
         }
+//long netraulPulse = TimeUnit.MICROSECONDS.
 
-        pin.pulse(Long.valueOf("1.5"));
+        pin.high();
+        Thread.sleep(1, 500000);
+        pin.low();
         return "ok";
     }
 
