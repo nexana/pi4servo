@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ServoController {
 
-    private static GpioPinDigitalOutput pin = null;
+    private static GpioPinPwmOutput pin = null;
 
     @RequestMapping("/")
     public String greeting() {
@@ -18,15 +18,17 @@ public class ServoController {
     public String open() throws InterruptedException {
         if (pin == null) {
             GpioController gpio = GpioFactory.getInstance();
-            pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_24, "ServoPulse", PinState.LOW);
+            pin = gpio.provisionPwmOutputPin(RaspiPin.GPIO_24, "pulsePin");
+
         }
 //long netraulPulse = TimeUnit.MICROSECONDS.
-
-        pin.pulse(1,true);
+        pin.setPwm(5);
 
         Thread.sleep(2500);
+        pin.setPwm(500);
+        Thread.sleep(2500);
+        pin.setPwm(50);
 
-        pin.pulse(2, true);
         return "ok done";
     }
 
