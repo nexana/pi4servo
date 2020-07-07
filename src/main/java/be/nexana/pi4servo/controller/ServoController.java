@@ -21,6 +21,7 @@ public class ServoController {
             pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_24, "ServoPulse", PinState.LOW);
         }
 
+        pin.pulse(Long.valueOf("1.5"));
         return "ok";
     }
 
