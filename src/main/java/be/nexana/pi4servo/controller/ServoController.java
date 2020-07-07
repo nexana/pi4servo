@@ -22,10 +22,12 @@ public class ServoController {
         }
 //long netraulPulse = TimeUnit.MICROSECONDS.
 
-        pin.high();
-        Thread.sleep(1, 500000);
-        pin.low();
-        return "ok";
+        pin.pulse(1,true);
+
+        Thread.sleep(2500);
+
+        pin.pulse(2, true);
+        return "ok done";
     }
 
 }
