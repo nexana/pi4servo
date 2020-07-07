@@ -15,7 +15,7 @@ public class ServoController {
     }
 
     @RequestMapping("/open")
-    public String open() {
+    public String open() throws InterruptedException {
         if (pin == null) {
             GpioController gpio = GpioFactory.getInstance();
             pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_24, "ServoPulse", PinState.LOW);
