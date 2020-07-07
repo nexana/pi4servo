@@ -25,9 +25,7 @@ public class ServoController {
         pin.setPwm(5);
 
         Thread.sleep(2500);
-        pin.setPwm(500);
-        Thread.sleep(2500);
-        pin.setPwm(50);
+        pin.setPwm(1);
 
         return "ok done";
     }
