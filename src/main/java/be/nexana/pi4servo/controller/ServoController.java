@@ -16,20 +16,20 @@ public class ServoController {
         return "hi";
     }
 
-    @RequestMapping("/open/{pwmValue}")
-    public String open(@PathVariable String pwmValue) throws InterruptedException {
+    @RequestMapping("/open/{pwmValue}/{pwmRange}")
+    public String open(@PathVariable String pwmValue, @PathVariable String pwmRange) throws InterruptedException {
         if (pin == null) {
             gpio = GpioFactory.getInstance();
             pin = gpio.provisionPwmOutputPin(RaspiPin.GPIO_24, "pulsePin");
             pin.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
         }
         pin.setMode(PinMode.PWM_OUTPUT);
-        pin.setPwmRange(1000);
+        pin.setPwmRange(Integer.parseInt(pwmRange));
         pin.setPwm(Integer.parseInt(pwmValue));
 
         gpio.shutdown();
 
-        return "ok done";
+        return "value :" + pwmValue + "<br>" + "range:" + pwmRange;
     }
 
 }
