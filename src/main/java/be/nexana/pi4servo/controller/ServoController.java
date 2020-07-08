@@ -21,7 +21,7 @@ public class ServoController {
     public String open(@PathVariable String pwmValue) throws InterruptedException {
         if (pin == null) {
             gpio = GpioFactory.getInstance();
-            pin = gpio.provisionSoftPwmOutputPin(RaspiPin.GPIO_01, "pulsePin");
+            pin = gpio.provisionPwmOutputPin(RaspiPin.GPIO_01, "pulsePin");
             Gpio.pwmSetRange(2000);
             Gpio.pwmSetMode(Gpio.PWM_MODE_MS);
             Gpio.pwmSetClock(192);
