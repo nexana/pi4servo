@@ -1,6 +1,7 @@
 package be.nexana.pi4servo.controller;
 
 import com.pi4j.io.gpio.*;
+import com.pi4j.wiringpi.Gpio;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,20 +17,20 @@ public class ServoController {
         return "hi";
     }
 
-    @RequestMapping("/open/{pwmValue}/{pwmRange}")
-    public String open(@PathVariable String pwmValue, @PathVariable String pwmRange) throws InterruptedException {
+    @RequestMapping("/open/{pwmValue}")
+    public String open(@PathVariable String pwmValue) throws InterruptedException {
         if (pin == null) {
             gpio = GpioFactory.getInstance();
-            pin = gpio.provisionPwmOutputPin(RaspiPin.GPIO_24, "pulsePin");
-            pin.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
+            pin = gpio.provisionSoftPwmOutputPin(RaspiPin.GPIO_01, "pulsePin");
+            Gpio.pwmSetRange(2000);
+            Gpio.pwmSetMode(Gpio.PWM_MODE_MS);
+            Gpio.pwmSetClock(192);
         }
-        pin.setMode(PinMode.PWM_OUTPUT);
-        pin.setPwmRange(Integer.parseInt(pwmRange));
         pin.setPwm(Integer.parseInt(pwmValue));
 
         gpio.shutdown();
 
-        return "value :" + pwmValue + "<br>" + "range:" + pwmRange;
+        return "value :" + pwmValue + "<br>";
     }
 
 }
