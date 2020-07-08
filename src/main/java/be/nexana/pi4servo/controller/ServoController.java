@@ -21,7 +21,7 @@ public class ServoController {
         if (pin == null) {
             gpio = GpioFactory.getInstance();
             pin = gpio.provisionPwmOutputPin(RaspiPin.GPIO_24, "pulsePin");
-
+            pin.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
         }
         pin.setMode(PinMode.PWM_OUTPUT);
         pin.setPwmRange(1000);
